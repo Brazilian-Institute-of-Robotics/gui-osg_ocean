@@ -28,13 +28,13 @@ SET( SKYBOX_TEXTURES_3
   ${osgOcean_SOURCE_DIR}/resources/textures/sky_fair_cloudy/west.png
 )
 
-SET( ISLAND_RESOURCES
-  ${osgOcean_SOURCE_DIR}/resources/island/islands.ive
-)
+# SET( ISLAND_RESOURCES
+#   ${osgOcean_SOURCE_DIR}/resources/island/islands.ive
+# )
 
-SET( BOAT_RESOURCES 
-  ${osgOcean_SOURCE_DIR}/resources/boat/boat.3ds
-)
+# SET( BOAT_RESOURCES
+#   ${osgOcean_SOURCE_DIR}/resources/boat/boat.3ds
+# )
 
 SET( EXAMPLE_SHADERS
   ${osgOcean_SOURCE_DIR}/resources/shaders/terrain.vert
@@ -61,7 +61,7 @@ ADD_EXECUTABLE(
   Scene.cpp
   SkyDome.cpp
   SphereSegment.cpp
-  
+
 
   ${HEADER_PATH}/SceneEventHandler.h
   ${HEADER_PATH}/Scene.h
@@ -74,7 +74,7 @@ ADD_EXECUTABLE(
 )
 
 TARGET_LINK_LIBRARIES(
-  
+
 
   oceanExample
 
@@ -124,15 +124,15 @@ INSTALL(
   DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/shaders
 )
 
-INSTALL(
-  FILES ${ISLAND_RESOURCES}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/island
-)
+# INSTALL(
+#   FILES ${ISLAND_RESOURCES}
+#   DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/island
+# )
 
-INSTALL(
-  FILES ${BOAT_RESOURCES}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/boat
-)
+# INSTALL(
+#   FILES ${BOAT_RESOURCES}
+#   DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/boat
+# )
 
 
 
