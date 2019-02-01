@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+
+    <name>oceanExample</name>
+    <version>0.0.1</version>
+    <description>First integration trial between Gzebo and osgOcean</description>
+    <author email="henrique.santos@fieb.org.br">Henrique Baqueiro</author>
+    <maintainer email="henrique.santos@fieb.org.br">Henrique Baqueiro</maintainer>
+    <license>Apache-2.0</license>
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>roscpp</depend>
+    <depend>libopenscenegraph</depend>
+
+</package>

@@ -1,3 +1,30 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(oceanExample)
+
+find_package(catkin REQUIRED COMPONENTS
+    roscpp
+    gazebo_msgs
+)
+
+find_package( OpenThreads )
+find_package( osg )
+find_package( osgDB )
+find_package( osgUtil )
+find_package( osgViewer )
+
+catkin_package()
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+macro( config_project PROJNAME LIBNAME )
+include_directories( ${${LIBNAME}_INCLUDE_DIR} )
+target_link_libraries( ${PROJNAME} ${${LIBNAME}_LIBRARY} )
+endmacro()
+
+
+
 SET(HEADER_PATH ${osgOcean_SOURCE_DIR}/include/OceanExample )
 SET(LIB_HEADER_PATH ${osgOcean_SOURCE_DIR}/include )
 
@@ -28,13 +55,13 @@ SET( SKYBOX_TEXTURES_3
   ${osgOcean_SOURCE_DIR}/resources/textures/sky_fair_cloudy/west.png
 )
 
-SET( ISLAND_RESOURCES
-  ${osgOcean_SOURCE_DIR}/resources/island/islands.ive
-)
+#SET( ISLAND_RESOURCES
+#  ${osgOcean_SOURCE_DIR}/resources/island/islands.ive
+#)
 
-SET( BOAT_RESOURCES 
-  ${osgOcean_SOURCE_DIR}/resources/boat/boat.3ds
-)
+#SET( BOAT_RESOURCES 
+#  ${osgOcean_SOURCE_DIR}/resources/boat/boat.3ds
+#)
 
 SET( EXAMPLE_SHADERS
   ${osgOcean_SOURCE_DIR}/resources/shaders/terrain.vert
@@ -61,6 +88,8 @@ ADD_EXECUTABLE(
   Scene.cpp
   SkyDome.cpp
   SphereSegment.cpp
+  gazebo_integration.h
+  gazebo_integration.cpp
   
 
   ${HEADER_PATH}/SceneEventHandler.h
@@ -124,17 +153,21 @@ INSTALL(
   DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/shaders
 )
 
-INSTALL(
-  FILES ${ISLAND_RESOURCES}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/island
-)
+#INSTALL(
+#  FILES ${ISLAND_RESOURCES}
+#  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/island
+#)
 
-INSTALL(
-  FILES ${BOAT_RESOURCES}
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/boat
-)
-
-
+#INSTALL(
+#  FILES ${BOAT_RESOURCES}
+#  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/resources/boat
+#)
 
 
+target_link_libraries(oceanExample ${catkin_LIBRARIES})
 
+config_project (oceanExample OPENTHREADS)
+config_project (oceanExample OSG)
+config_project (oceanExample OSGDB)
+config_project (oceanExample OSGUTIL)
+config_project (oceanExample OSGVIEWER)

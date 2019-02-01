@@ -41,6 +41,16 @@
 #include "Scene.h"
 #include "TextHUD.h"
 
+
+    #include <osg/Group>
+    #include <osg/PositionAttitudeTransform>
+    #include <ros/ros.h>
+    #include <osg/NodeCallback>
+    #include <gazebo_msgs/GetModelState.h>
+    #include <gazebo_msgs/GetLinkState.h>
+    #include "gazebo_integration.h"
+
+
 class BoatPositionCallback : public osg::NodeCallback
 {
 public: 
@@ -324,6 +334,8 @@ int main(int argc, char *argv[])
         }
     }
 
+
+
     //------------------------------------------------------------------------
     // Set up the viewer
     //------------------------------------------------------------------------
@@ -417,6 +429,23 @@ int main(int argc, char *argv[])
     view->addEventHandler( new SceneEventHandler(scene.get(), hud.get(), view, initialCameraPosition ) );
     view->addEventHandler( new osgViewer::HelpHandler );
     view->getCamera()->setName("MainCamera");
+
+    //------------------------------------------------------------------------
+    // Load Gazebo Models
+    //------------------------------------------------------------------------
+
+        //osg::ref_ptr<osg::Group> root = new osg::Group;
+        ros::init(argc, argv, "oceanExample");
+        //osgViewer::Viewer viewer;
+        //viewer.setSceneData(root.get());
+        //viewer.realize();
+        CallbackAdapter *nodeCallback = new CallbackAdapter(root.get());
+        root->setUpdateCallback(nodeCallback);
+        //return viewer.run();
+
+    //------------------------------------------------------------------------
+    //------------------------------------------------------------------------
+
 
     viewer->realize();
 
