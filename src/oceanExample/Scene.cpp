@@ -218,24 +218,24 @@ void Scene::build(
 
         }
 
-        {
-            ScopedTimer islandsTimer("  . Loading islands: ", osg::notify(osg::NOTICE));
-            osg::ref_ptr<osg::Node> islandModel = loadIslands(terrain_shader_basename);
+        // {
+        //     ScopedTimer islandsTimer("  . Loading islands: ", osg::notify(osg::NOTICE));
+        //     osg::ref_ptr<osg::Node> islandModel = loadIslands(terrain_shader_basename);
 
-            if( islandModel.valid() )
-            {
-                _islandSwitch = new osg::Switch;
-                _islandSwitch->addChild( islandModel.get(), true );
+        //     if( islandModel.valid() )
+        //     {
+        //         _islandSwitch = new osg::Switch;
+        //         _islandSwitch->addChild( islandModel.get(), true );
                 
-                _islandSwitch->setNodeMask( _oceanScene->getNormalSceneMask()    | 
-                                            _oceanScene->getReflectedSceneMask() | 
-                                            _oceanScene->getRefractedSceneMask() |
-                                            _oceanScene->getHeightmapMask()      | 
-                                            RECEIVE_SHADOW);
+        //         _islandSwitch->setNodeMask( _oceanScene->getNormalSceneMask()    | 
+        //                                     _oceanScene->getReflectedSceneMask() | 
+        //                                     _oceanScene->getRefractedSceneMask() |
+        //                                     _oceanScene->getHeightmapMask()      | 
+        //                                     RECEIVE_SHADOW);
 
-                _oceanScene->addChild( _islandSwitch.get() );
-            }
-        }
+        //         _oceanScene->addChild( _islandSwitch.get() );
+        //     }
+        // }
 
         {
             ScopedTimer lightingTimer("  . Setting up lighting: ", osg::notify(osg::NOTICE));
@@ -301,13 +301,13 @@ void Scene::changeScene( SCENE_TYPE type )
     }
 }
 
-#define USE_CUSTOM_SHADER
+// #define USE_CUSTOM_SHADER
 
 // Load the islands model
 // Here we attach a custom shader to the model.
 // This shader overrides the default shader applied by OceanScene but uses uniforms applied by OceanScene.
 // The custom shader is needed to add multi-texturing and bump mapping to the terrain.
-osg::Node* Scene::loadIslands(const std::string& terrain_shader_basename)
+/* osg::Node* Scene::loadIslands(const std::string& terrain_shader_basename)
 {
     osgDB::Registry::instance()->getDataFilePathList().push_back("resources/island");
     const std::string filename = "islands.ive";
@@ -344,7 +344,7 @@ osg::Node* Scene::loadIslands(const std::string& terrain_shader_basename)
     islandpat->addChild(island.get());
 
     return islandpat;
-}
+} */
 
 osg::ref_ptr<osg::TextureCubeMap> Scene::loadCubeMapTextures( const std::string& dir )
 {

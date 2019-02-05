@@ -106,6 +106,7 @@ CallbackAdapter::CallbackAdapter(osg::ref_ptr<osg::Group> root) {
         this->loadLink("flexjoint_0::RadialMovingBase", FILE_PATH_TOOL_RADIALMOVINGBASE, this->tool_radialmovingbase_transform_.get());
         
         this->startROSClient();
+
     }
     else { // The code never enters here. (why?)
         std::cout << "ERROR: ROS is not online" << std::endl;
@@ -129,7 +130,12 @@ void CallbackAdapter::startROSClient() {
 
 // Add the node (given the mesh path) as child of a transform, and the transform as child of the root
 void CallbackAdapter::loadLink(std::string link_name, std::string mesh_path, osg::PositionAttitudeTransform* osg_transform) {
-    osg_transform->addChild(osgDB::readNodeFile(mesh_path));
+    if ( osgDB::readNodeFile(mesh_path) != NULL) {
+        osg_transform->addChild(osgDB::readNodeFile(mesh_path));
+    }
+    else {
+        std::cout << "Error loading link \"" << link_name << "\"." << std::endl;
+    }
     this->root_->addChild(osg_transform);
 }
 
